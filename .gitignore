@@ -1,0 +1,14 @@
+# cache y basura
+.undo/
+.swap/
+.backup/
+shada/
+state/
+
+# Plugins 
+lazy/
+packer_compiled.lua
+
+# OS
+.DS_Store
+

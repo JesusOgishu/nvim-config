@@ -9,10 +9,12 @@ return {
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 		},
+
 		config = function()
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
 
+			-- Cargar snippets estilo VSCode
 			require("luasnip.loaders.from_vscode").lazy_load()
 
 			cmp.setup({

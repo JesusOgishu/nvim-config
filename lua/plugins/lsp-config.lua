@@ -17,6 +17,7 @@ return {
 					"emmet_ls",
 					"intelephense",
 					"clangd",
+					"dartls",
 				},
 			})
 		end,
@@ -27,7 +28,12 @@ return {
 		config = function()
 			local lspconfig = require("lspconfig")
 
+			-- CAPABILITIES para que nvim-cmp funcione también con LSP
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+			-- LUA
 			lspconfig.lua_ls.setup({
+				capabilities = capabilities,
 				settings = {
 					Lua = {
 						diagnostics = {
@@ -37,11 +43,19 @@ return {
 				},
 			})
 
-			lspconfig.ts_ls.setup({})
+			-- TYPESCRIPT
+			lspconfig.ts_ls.setup({
+				capabilities = capabilities,
+			})
 
-			lspconfig.html.setup({})
+			-- HTML
+			lspconfig.html.setup({
+				capabilities = capabilities,
+			})
 
+			-- EMMET
 			lspconfig.emmet_ls.setup({
+				capabilities = capabilities,
 				filetypes = {
 					"html",
 					"css",
@@ -52,17 +66,19 @@ return {
 				},
 			})
 
+			-- PHP
 			lspconfig.intelephense.setup({
+				capabilities = capabilities,
 				settings = {
 					intelephense = {
-						files = {
-							maxsize = 5000000,
-						},
+						files = { maxsize = 5000000 },
 					},
 				},
 			})
 
+			-- C/C++
 			lspconfig.clangd.setup({
+				capabilities = capabilities,
 				cmd = {
 					"clangd",
 					"--background-index",
@@ -72,11 +88,12 @@ return {
 				},
 				filetypes = { "c", "cpp", "objc", "objcpp" },
 			})
-
+			-- KEYMAPS LSP
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
 			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
 
+			-- FORMATEO AUTO
 			vim.api.nvim_create_autocmd("BufWritePre", {
 				callback = function()
 					vim.lsp.buf.format({ async = false })

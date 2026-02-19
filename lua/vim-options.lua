@@ -10,17 +10,16 @@ vim.opt.clipboard = "unnamedplus"
 vim.g.blade_custom_directives = { "livewire", "endlivewire" }
 vim.g.blade_indent_rules = 1
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "blade",
-  callback = function()
-    vim.opt_local.syntax = "on"
-  end,
+	pattern = "blade",
+	callback = function()
+		vim.opt_local.syntax = "on"
+	end,
 })
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = "*.blade.php",
-  callback = function()
-    vim.bo.filetype = "html"
-  end,
+	pattern = "*.blade.php",
+	callback = function()
+		vim.bo.filetype = "html"
+	end,
 })
-vim.o.foldmethod = "expr"
-vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-vim.o.foldenable = true
+vim.o.foldenable = false
+vim.o.foldmethod = "manual"

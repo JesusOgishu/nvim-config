@@ -7,7 +7,6 @@ return {
       require("mason").setup()
     end,
   },
-
   -- Conecta mason con lspconfig
   {
     "williamboman/mason-lspconfig.nvim",
@@ -25,7 +24,6 @@ return {
       })
     end,
   },
-
   -- LSP principal
   {
     "neovim/nvim-lspconfig",
@@ -35,10 +33,9 @@ return {
     },
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      local lspconfig = require("lspconfig")
 
       -- LUA
-      lspconfig.lua_ls.setup({
+      vim.lsp.config("lua_ls", {
         capabilities = capabilities,
         settings = {
           Lua = {
@@ -50,17 +47,17 @@ return {
       })
 
       -- TYPESCRIPT
-      lspconfig.ts_ls.setup({
+      vim.lsp.config("ts_ls", {
         capabilities = capabilities,
       })
 
       -- HTML
-      lspconfig.html.setup({
+      vim.lsp.config("html", {
         capabilities = capabilities,
       })
 
       -- EMMET
-      lspconfig.emmet_ls.setup({
+      vim.lsp.config("emmet_ls", {
         capabilities = capabilities,
         filetypes = {
           "html",
@@ -73,7 +70,7 @@ return {
       })
 
       -- PHP
-      lspconfig.intelephense.setup({
+      vim.lsp.config("intelephense", {
         capabilities = capabilities,
         settings = {
           intelephense = {
@@ -83,7 +80,7 @@ return {
       })
 
       -- C/C++
-      lspconfig.clangd.setup({
+      vim.lsp.config("clangd", {
         capabilities = capabilities,
         cmd = {
           "clangd",
@@ -93,6 +90,16 @@ return {
           "--header-insertion=iwyu",
         },
         filetypes = { "c", "cpp", "objc", "objcpp" },
+      })
+
+      -- Enable all servers
+      vim.lsp.enable({
+        "lua_ls",
+        "ts_ls",
+        "html",
+        "emmet_ls",
+        "intelephense",
+        "clangd",
       })
 
       -- KEYMAPS
